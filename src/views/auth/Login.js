@@ -34,7 +34,6 @@ class Login extends React.Component {
                     <Input
                       placeholder="Email"
                       type="email"
-                      autoComplete="new-email"
                       style={{ color: "#000" }}
                     />
                   </InputGroup>
@@ -49,7 +48,6 @@ class Login extends React.Component {
                     <Input
                       placeholder="Password"
                       type="password"
-                      autoComplete="new-password"
                       style={{ color: "#000" }}
                     />
                   </InputGroup>

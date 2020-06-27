@@ -4,6 +4,7 @@ import OTP from "views/auth/OTP.js";
 import WaitingList from "views/admin/WaitingList.js";
 import Transactions from "views/admin/Transactions";
 import Users from "views/admin/Users";
+import DetailBook from "views/admin/DetailBook";
 
 var routes = [
   {
@@ -25,6 +26,13 @@ var routes = [
     name: "Users",
     icon: "ni ni-single-02 text-yellow",
     component: Users,
+    layout: "/admin",
+  },
+  {
+    path: "/book/:id",
+    name: "Book",
+    icon: "ni ni-book text-info",
+    component: DetailBook,
     layout: "/admin",
   },
   {

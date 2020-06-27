@@ -8,7 +8,7 @@ import {
   Container,
   Row,
   Button,
-  NavLink,
+  // NavLink,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -18,7 +18,7 @@ class WaitingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: "waiting",
+      status: "waiting", //waiting, rejected, approved
     };
   }
   render() {
@@ -40,12 +40,6 @@ class WaitingList extends Component {
                       <th scope="col">ID</th>
                       <th scope="col">User</th>
                       <th scope="col">Title</th>
-                      <th scope="col">Image</th>
-                      <th scope="col">File PDF</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Category</th>
-                      <th scope="col">Author</th>
-                      <th scope="col">Price</th>
                       <th scope="col">Status</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Actions</th>
@@ -56,25 +50,6 @@ class WaitingList extends Component {
                       <td>1</td>
                       <td>Ridwan Dermawan</td>
                       <td>Mission Imposibble</td>
-                      <td>
-                        <img
-                          alt="..."
-                          src={`${URL_API}/image/image-1592930525588.jpg`}
-                          width={50}
-                        />
-                      </td>
-                      <td>
-                        <NavLink
-                          href={`${URL_API}/ebook/file_ebook-1592930529518.pdf`}
-                          target="_blank"
-                        >
-                          file_ebook-1592930529518.pdf
-                        </NavLink>
-                      </td>
-                      <td>A e-book from John ...</td>
-                      <td>Actions</td>
-                      <td>John Lenon</td>
-                      <td>Rp. 33.500,-</td>
                       <td
                         className={
                           this.state.status === "waiting"
@@ -86,8 +61,14 @@ class WaitingList extends Component {
                       </td>
                       <td>20:54 22/06/2020</td>
                       <td>
-                        <Button color="success">Accept</Button>
-                        <Button color="danger">Reject</Button>
+                        <Button
+                          color="info"
+                          onClick={() =>
+                            this.props.history.push("/admin/book/3")
+                          }
+                        >
+                          Detail
+                        </Button>
                       </td>
                     </tr>
                   </tbody>

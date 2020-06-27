@@ -48,7 +48,9 @@ class Sidebar extends React.Component {
   // creates the links that appear in the left menu / Sidebar
   createLinks = (routes) => {
     return routes
-      .filter((props) => props.layout === "/admin")
+      .filter(
+        (props) => props.layout === "/admin" && props.path !== "/book/:id"
+      )
       .map((prop, key) => {
         return (
           <>
