@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // reactstrap components
-import { Card, CardHeader, Container, Row, CardBody } from "reactstrap";
+import { Card, CardHeader, Container, Row, CardBody, Button } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 import { URL_API } from "utils/http";
@@ -29,13 +29,27 @@ class DetailBooks extends Component {
                   </Row>
                 </CardHeader>
                 <CardBody>
-                  <p>Haaai semuanya</p>
+                  <h2>Title</h2>
+                  <h4>Cateogry</h4>
+                  <h4>
+                    <em>Author</em>
+                  </h4>
+                  <p>Price</p>
+                  <p>Description</p>
+                  <Row
+                    style={{
+                      width: "100%",
+                      justifyContent: "center",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <Button color="success">Accept</Button>
+                    <Button color="danger">Reject</Button>
+                  </Row>
                   <iframe
-                    // style={{ height: "750px" }}
+                    style={{ width: "100%", height: "100vh" }}
                     title="have fun"
-                    src={
-                      "http://3.92.162.78:8080/ebook/file_ebook-1592930529518.pdf"
-                    }
+                    src={`${URL_API}/ebook/file_ebook-1592930529518.pdf`}
                     key="45"
                   ></iframe>
                 </CardBody>
