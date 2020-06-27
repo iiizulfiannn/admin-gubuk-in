@@ -1,27 +1,12 @@
 import React, { Component } from "react";
 
 // reactstrap components
-import {
-  Card,
-  CardHeader,
-  Table,
-  Container,
-  Row,
-  Button,
-  CardBody,
-  // NavLink,
-} from "reactstrap";
+import { Card, CardHeader, Container, Row, CardBody } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 import { URL_API } from "utils/http";
 
 class DetailBooks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      status: "waiting", //waiting, rejected, approved
-    };
-  }
   render() {
     return (
       <>
@@ -45,6 +30,14 @@ class DetailBooks extends Component {
                 </CardHeader>
                 <CardBody>
                   <p>Haaai semuanya</p>
+                  <iframe
+                    // style={{ height: "750px" }}
+                    title="have fun"
+                    src={
+                      "http://3.92.162.78:8080/ebook/file_ebook-1592930529518.pdf"
+                    }
+                    key="45"
+                  ></iframe>
                 </CardBody>
               </Card>
             </div>
