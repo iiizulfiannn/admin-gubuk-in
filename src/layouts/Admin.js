@@ -59,7 +59,14 @@ class Admin extends React.Component {
       }
     }
 
-    if (!user) this.props.history.push("/auth/login");
+    if (!user) {
+      this.props.history.push("/auth/login");
+    } else {
+      const userData = JSON.parse(localStorage.getItem("_user"));
+      if (userData.role !== 1) {
+        this.props.history.push("/auth/login");
+      }
+    }
   };
   render() {
     return (
