@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import qs from "querystring";
 
 // reactstrap components
 import {
@@ -12,6 +13,8 @@ import {
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
+import { getAllBooksActionCreator } from "redux/actions/books";
+import { connect } from "react-redux";
 // import { URL_API } from "utils/http";
 
 class WaitingList extends Component {
@@ -21,7 +24,51 @@ class WaitingList extends Component {
       status: "waiting", //waiting, rejected, approved
     };
   }
+
+  componentDidMount = async () => {
+    const requestData = {
+      // page: 1,
+      sort: true,
+      // status: "waiting",
+      value: "created_at",
+      // limit: 5,
+    };
+    await this.props.getAllBooksAction(qs.stringify(requestData));
+  };
+
   render() {
+    const { books } = this.props;
+
+    const dataBook = books.books.map((book, index) => {
+      return (
+        <tr key={index}>
+          <td>{book.id}</td>
+          <td>{book.id_user}</td>
+          <td>{book.title}</td>
+          <td
+            className={
+              book.status === "waiting"
+                ? "text-warning"
+                : book.status === "rejected"
+                ? "text-danger"
+                : "text-success"
+            }
+          >
+            {book.status}
+          </td>
+          <td>{book.created_at}</td>
+          <td>
+            <Button
+              color="info"
+              onClick={() => this.props.history.push(`/admin/book/${book.id}`)}
+            >
+              Detail
+            </Button>
+          </td>
+        </tr>
+      );
+    });
+
     return (
       <>
         <Header />
@@ -45,33 +92,7 @@ class WaitingList extends Component {
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Ridwan Dermawan</td>
-                      <td>Mission Imposibble</td>
-                      <td
-                        className={
-                          this.state.status === "waiting"
-                            ? "text-danger"
-                            : "text-success"
-                        }
-                      >
-                        Waiting
-                      </td>
-                      <td>20:54 22/06/2020</td>
-                      <td>
-                        <Button
-                          color="info"
-                          onClick={() =>
-                            this.props.history.push("/admin/book/3")
-                          }
-                        >
-                          Detail
-                        </Button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody>{dataBook}</tbody>
                 </Table>
               </Card>
             </div>
@@ -82,4 +103,18 @@ class WaitingList extends Component {
   }
 }
 
-export default WaitingList;
+const mapStateToProps = ({ books }) => {
+  return {
+    books,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllBooksAction: (requestData) => {
+      dispatch(getAllBooksActionCreator(requestData));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WaitingList);

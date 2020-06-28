@@ -8,7 +8,7 @@ import {
   //   resetStateAction,
 } from "./actionTypes";
 import {
-  getAllBooksAdmin,
+  getAllBooks,
   //   getAllBooks,
   //   addBook,
   //   getBook,
@@ -16,10 +16,10 @@ import {
   //   deleteBook,
 } from "../../utils/http";
 
-export const getAllBooksActionAdmin = () => {
+export const getAllBooksActionCreator = (requestData) => {
   return {
     type: getAllBooksAction,
-    payload: getAllBooksAdmin(),
+    payload: getAllBooks(requestData),
   };
 };
 
