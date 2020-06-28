@@ -42,6 +42,7 @@ const books = (prevState = initialValue, action) => {
         isFulfilled: true,
         isLoading: false,
         books: action.payload.data.data,
+        pagination: action.payload.data.pagination,
       };
 
     // case getAllBooksActionHome + pending:
