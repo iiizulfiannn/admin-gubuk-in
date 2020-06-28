@@ -6,6 +6,8 @@ import { Card, CardHeader, Table, Container, Row } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 
+import { getAllTransaction } from "utils/http";
+
 class Transactions extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,14 @@ class Transactions extends Component {
       status: "waiting",
     };
   }
+
+  componentDidMount = async () => {
+    const user = JSON.parse(localStorage.getItem("_user"));
+    await getAllTransaction(user.token)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   render() {
     return (
       <>

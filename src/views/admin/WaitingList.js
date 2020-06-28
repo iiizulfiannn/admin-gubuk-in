@@ -19,6 +19,7 @@ import { connect } from "react-redux";
 import ReactPaginate from "react-paginate";
 import Loading from "components/Loading";
 import { URL_API } from "utils/http";
+import { deleteBookById } from "utils/http";
 // import { URL_API } from "utils/http";
 
 class WaitingList extends Component {
@@ -28,6 +29,7 @@ class WaitingList extends Component {
       sort: false,
       value: "created_at",
       page: 1,
+      limit: 12,
       // status: "waiting",
     };
   }
@@ -37,6 +39,7 @@ class WaitingList extends Component {
       sort: this.state.sort,
       value: this.state.value,
       page: this.state.page,
+      limit: this.state.limit,
     };
     await this.props.getAllBooksAction(
       qs.stringify(this.state.page === 1 ? requestData : newRequestData)
@@ -58,10 +61,18 @@ class WaitingList extends Component {
           sort: this.state.sort,
           value: this.state.value,
           page: this.state.page,
+          limit: this.state.limit,
         };
         this.getAllBooks(requestData);
       }
     );
+  };
+
+  _deleteBookById = async (id) => {
+    const user = JSON.parse(localStorage.getItem("_user"));
+    await deleteBookById(id, user.token)
+      .then((res) => this.getAllBooks())
+      .catch((err) => console.log(err));
   };
 
   render() {
@@ -108,6 +119,12 @@ class WaitingList extends Component {
               }
             >
               Detail
+            </Button>
+            <Button
+              color="danger"
+              onClick={() => this._deleteBookById(book.id)}
+            >
+              Delete
             </Button>
           </td>
         </tr>

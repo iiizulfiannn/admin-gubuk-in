@@ -47,7 +47,7 @@ class Admin extends React.Component {
     }
     return "Detail Book";
   };
-  componentDidMount = () => {
+  componentDidMount = async () => {
     const user = localStorage.getItem("_user");
     const email = localStorage.getItem("_email");
 

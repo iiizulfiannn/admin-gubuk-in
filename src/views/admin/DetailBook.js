@@ -5,8 +5,24 @@ import { Card, CardHeader, Container, Row, CardBody, Button } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 import { URL_API } from "utils/http";
+import { changeStatusBook } from "utils/http";
 
 class DetailBooks extends Component {
+  _changeStatus = async (status) => {
+    const { id } = this.props.location.state[0];
+
+    // const data = { status };
+
+    const user = JSON.parse(localStorage.getItem("_user"));
+
+    const formData = new FormData();
+    formData.set("status", status);
+
+    await changeStatusBook(id, formData, user.token)
+      .then((res) => this.props.history.push("/admin/index"))
+      .catch((err) => console.log(err.message));
+  };
+
   render() {
     const StatusBadge = ({ color, text }) => {
       return (
@@ -62,12 +78,58 @@ class DetailBooks extends Component {
             marginBottom: "20px",
           }}
         >
-          {book.status === "waiting" && (
-            <Row>
-              <Button color="success">Accept</Button>
-              <Button color="danger">Reject</Button>
-            </Row>
-          )}
+          {/* {book.status === "waiting" && ( */}
+          <Row>
+            {book.status === "waiting" && (
+              <>
+                <Button
+                  color="success"
+                  onClick={() => this._changeStatus("accepted")}
+                >
+                  Accept
+                </Button>
+                <Button
+                  color="danger"
+                  onClick={() => this._changeStatus("rejected")}
+                >
+                  Reject
+                </Button>
+              </>
+            )}
+            {book.status === "accepted" && (
+              <>
+                <Button
+                  color="info"
+                  onClick={() => this._changeStatus("waiting")}
+                >
+                  Waiting
+                </Button>
+                <Button
+                  color="danger"
+                  onClick={() => this._changeStatus("rejected")}
+                >
+                  Reject
+                </Button>
+              </>
+            )}
+            {book.status === "rejected" && (
+              <>
+                <Button
+                  color="success"
+                  onClick={() => this._changeStatus("accepted")}
+                >
+                  Accept
+                </Button>
+                <Button
+                  color="info"
+                  onClick={() => this._changeStatus("waiting")}
+                >
+                  Waiting
+                </Button>
+              </>
+            )}
+          </Row>
+          {/* )} */}
         </Row>
 
         {/* PDF */}
