@@ -62,12 +62,14 @@ class Login extends React.Component {
         const { token, refreshToken, email } = res.data.data;
         const user = res.data.data;
         localStorage.setItem("_user", JSON.stringify(user));
+        localStorage.setItem("_email", JSON.stringify(email));
         this.props.addAuth({ token, email, refreshToken, user });
         this.props.history.push("/admin/index");
       })
       .catch((err) => {
         this.setState({
           isWrong: true,
+          isLoading: false,
         });
         console.log(err);
       });

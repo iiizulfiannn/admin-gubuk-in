@@ -11,6 +11,8 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import "../styles/home.css";
 
 import routes from "routes.js";
+import { addAuthCreator } from "redux/actions/auth";
+import { connect } from "react-redux";
 
 class Admin extends React.Component {
   componentDidUpdate(e) {
@@ -46,8 +48,18 @@ class Admin extends React.Component {
     return "Detail Book";
   };
   componentDidMount = () => {
-    const currentUser = localStorage.getItem("_user");
-    if (!currentUser) this.props.history.push("/auth/login");
+    const user = localStorage.getItem("_user");
+    const email = localStorage.getItem("_email");
+
+    if (email !== null) {
+      if (user !== null) {
+        const userVal = JSON.parse(user);
+        const { token, email, refreshToken } = userVal;
+        this.props.addAuth({ token, email, refreshToken, user: userVal });
+      }
+    }
+
+    if (!user) this.props.history.push("/auth/login");
   };
   render() {
     return (
@@ -79,4 +91,12 @@ class Admin extends React.Component {
   }
 }
 
-export default Admin;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAuth: (body) => {
+      dispatch(addAuthCreator(body));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Admin);
