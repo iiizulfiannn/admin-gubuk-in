@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
-import { URL_API } from "utils/http";
+// import { URL_API } from "utils/http";
 
 class WaitingList extends Component {
   constructor(props) {
