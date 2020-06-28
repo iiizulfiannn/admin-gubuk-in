@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 
 // reactstrap components
-import {
-  Card,
-  CardHeader,
-  Container,
-  Row,
-  CardBody,
-  Button,
-  Badge,
-} from "reactstrap";
+import { Card, CardHeader, Container, Row, CardBody, Button } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 import { URL_API } from "utils/http";
@@ -18,9 +10,9 @@ class DetailBooks extends Component {
   render() {
     const StatusBadge = ({ color, text }) => {
       return (
-        <Badge color={color} pill>
+        <Button color={color} disabled type="button">
           {text}
-        </Badge>
+        </Button>
       );
     };
 

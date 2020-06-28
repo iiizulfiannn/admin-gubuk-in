@@ -50,7 +50,6 @@ class AdminNavbar extends React.Component {
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem
-                    href="#pablo"
                     onClick={() => {
                       this.props.removeAuth();
                       localStorage.removeItem("_email");
