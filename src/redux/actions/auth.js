@@ -1,33 +1,14 @@
-// import {
-//   registerUserAction,
-//   loginUserAction,
-//   currentUserAction,
-//   resetStateAction,
-// } from "./actionTypes";
-// import { register, login } from "../../utils/http";
+import { addAuthType, removeAuthType } from "./actionTypes";
 
-// export const registerUserActionCreator = (data) => {
-//   return {
-//     type: registerUserAction,
-//     payload: register(data),
-//   };
-// };
+export const addAuthCreator = (body) => {
+  return {
+    type: addAuthType,
+    value: body,
+  };
+};
 
-// export const loginUserActionCreator = (data) => {
-//   return {
-//     type: loginUserAction,
-//     payload: login(data),
-//   };
-// };
-
-// export const currentUserActionCreator = () => {
-//   return {
-//     type: currentUserAction,
-//   };
-// };
-
-// export const resetStateActionCreator = () => {
-//   return {
-//     type: resetStateAction,
-//   };
-// };
+export const removeAuthCreator = () => {
+  return {
+    type: removeAuthType,
+  };
+};

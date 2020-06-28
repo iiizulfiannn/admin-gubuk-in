@@ -28,13 +28,13 @@ class DetailBooks extends Component {
     const detailBook = (
       <CardBody>
         {/* Title */}
-        <h1 className="text-info">{book.title}</h1>
+        <h1 className="text-info capitalize">{book.title}</h1>
 
         {/* Category */}
-        <h4>{book.category}</h4>
+        <h4 className="capitalize">{book.category}</h4>
 
         {/* Author */}
-        <h4>
+        <h4 className="capitalize">
           <em>{book.author}</em>
         </h4>
 

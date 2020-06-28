@@ -15,8 +15,76 @@ import {
   // Row,
   Col,
 } from "reactstrap";
+import { addAuthCreator } from "redux/actions/auth";
+import { connect } from "react-redux";
+import { postLogin } from "utils/http";
+import qs from "querystring";
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isWrong: false,
+      isEmpty: false,
+      email: "",
+      password: "",
+      isLoading: false,
+    };
+  }
+
+  _submit = () => {
+    this.setState({
+      isWrong: false,
+      isEmpty: false,
+    });
+    if (this.state.email === "" || this.state.password === "") {
+      this.setState({
+        isEmpty: true,
+      });
+    } else {
+      this.setState({
+        isEmpty: false,
+        isWrong: false,
+      });
+      const data = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+      this.setState({ isLoading: true });
+      this._login(data);
+    }
+  };
+
+  _login = async (data) => {
+    await postLogin(qs.stringify(data))
+      .then((res) => {
+        this.setState({ isLoading: false });
+        const { token, refreshToken, email } = res.data.data;
+        const user = res.data.data;
+        localStorage.setItem("_user", JSON.stringify(user));
+        this.props.addAuth({ token, email, refreshToken, user });
+        this.props.history.push("/admin/index");
+      })
+      .catch((err) => {
+        this.setState({
+          isWrong: true,
+        });
+        console.log(err);
+      });
+  };
+
+  _changeEmail = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
+  };
+
+  _changePassword = (e) => {
+    this.setState({
+      password: e.target.value,
+    });
+  };
+
   render() {
     return (
       <>
@@ -35,6 +103,7 @@ class Login extends React.Component {
                       placeholder="Email"
                       type="email"
                       style={{ color: "#000" }}
+                      onChange={this._changeEmail}
                     />
                   </InputGroup>
                 </FormGroup>
@@ -49,20 +118,25 @@ class Login extends React.Component {
                       placeholder="Password"
                       type="password"
                       style={{ color: "#000" }}
+                      onChange={this._changePassword}
                     />
                   </InputGroup>
                 </FormGroup>
-                <FormGroup>
-                  <p className="text-lead">
-                    * if success, we will sent you OTP Code
-                  </p>
-                </FormGroup>
+                {this.state.isLoading && (
+                  <p className="text-primary">Loading....</p>
+                )}
+                {this.state.isWrong && (
+                  <p className="text-danger">*Email or password went wrong!</p>
+                )}
+                {this.state.isEmpty && (
+                  <p className="text-danger">*Email or password empty!</p>
+                )}
                 <div className="text-center">
                   <Button
                     className="my-4"
                     color="primary"
                     type="button"
-                    onClick={() => this.props.history.push("/auth/otp")}
+                    onClick={this._submit}
                   >
                     Sign in
                   </Button>
@@ -76,4 +150,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addAuth: (body) => {
+      dispatch(addAuthCreator(body));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
