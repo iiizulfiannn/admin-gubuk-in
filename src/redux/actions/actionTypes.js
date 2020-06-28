@@ -2,6 +2,7 @@ export const addAuthType = "ADD_AUTH";
 export const removeAuthType = "REMOVE_AUTH";
 
 export const getAllBooksAction = "GET_ALL_BOOKS";
+export const getAllBooksByStatusAction = "GET_ALL_BOOKS_BY_STATUS";
 export const getAllTransactionsAction = "GET_ALL_TRANSACTIONS";
 export const getAllUsersAction = "GET_ALL_USERS";
 

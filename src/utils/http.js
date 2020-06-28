@@ -7,6 +7,9 @@ export const URL_API = process.env.REACT_APP_URL_API;
 export const getAllBooks = (requestData) => {
   return Axios.get(`${URL_API}/books?${requestData}`);
 };
+export const getAllBooksByStatus = (requestData) => {
+  return Axios.get(`${URL_API}/books?${requestData}`);
+};
 
 export const deleteBookById = (id, token) => {
   const config = {

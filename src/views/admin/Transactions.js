@@ -6,24 +6,46 @@ import { Card, CardHeader, Table, Container, Row } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 
-import { getAllTransaction } from "utils/http";
+import { connect } from "react-redux";
+// import book from "redux/reducers/authReducer";
 
 class Transactions extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      status: "waiting",
-    };
-  }
-
-  componentDidMount = async () => {
-    const user = JSON.parse(localStorage.getItem("_user"));
-    await getAllTransaction(user.token)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-
   render() {
+    const { books, users, transactions } = this.props;
+
+    const DataTransactions = transactions.transactions.map((trans, index) => {
+      const timeStamp = trans.created_at.split("T");
+      const date = timeStamp[0];
+      const time = timeStamp[1].split(".")[0];
+      const book = books.booksByStatus.filter((book) => {
+        return book.id === trans.id_book;
+      });
+      const buyer = users.users.filter((user) => {
+        return user.id === trans.id_buyer;
+      });
+      const seller = users.users.filter((user) => {
+        return user.id === trans.id_seller;
+      });
+      return (
+        <tr key={index}>
+          <td>{trans.id}</td>
+          <td className={!book[0] ? "text-danger" : ""}>
+            {book[0] ? book[0].title : "Rejected"}
+          </td>
+          <td>{buyer[0] ? buyer[0].name : ""}</td>
+          <td>{seller[0] ? seller[0].name : ""}</td>
+          <td
+            className={
+              trans.status === "Belum Dibayar" ? "text-danger" : "text-success"
+            }
+          >
+            {trans.status}
+          </td>
+          <td>{`${time} ${date}`}</td>
+        </tr>
+      );
+    });
+
     return (
       <>
         <Header />
@@ -47,16 +69,7 @@ class Transactions extends Component {
                       <th scope="col">Created At</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Mission Imposibble</td>
-                      <td>Bagus Pratama</td>
-                      <td>Ni Made Bagus</td>
-                      <td>Belum Dibayar</td>
-                      <td>20:54 22/06/2020</td>
-                    </tr>
-                  </tbody>
+                  <tbody>{DataTransactions}</tbody>
                 </Table>
               </Card>
             </div>
@@ -67,4 +80,12 @@ class Transactions extends Component {
   }
 }
 
-export default Transactions;
+const mapStateToProps = ({ books, transactions, users }) => {
+  return {
+    books,
+    transactions,
+    users,
+  };
+};
+
+export default connect(mapStateToProps)(Transactions);

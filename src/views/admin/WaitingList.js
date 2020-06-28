@@ -47,7 +47,12 @@ class WaitingList extends Component {
   };
 
   componentDidMount = () => {
-    this.getAllBooks();
+    const user = localStorage.getItem("_user");
+    if (!user || user === null || user === undefined) {
+      this.props.history.push("/auth");
+    } else {
+      this.getAllBooks();
+    }
   };
 
   handlePageClick = (value) => {

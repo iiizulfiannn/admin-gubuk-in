@@ -6,24 +6,46 @@ import { Card, CardHeader, Table, Container, Row } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 import { URL_API } from "utils/http";
-import { getAllUsers } from "utils/http";
+import { connect } from "react-redux";
+import avatar from "../../assets/img/avatar.jpg";
 
 class Users extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      status: "waiting",
-    };
-  }
-
-  componentDidMount = async () => {
-    const user = JSON.parse(localStorage.getItem("_user"));
-    await getAllUsers(user.token)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-
   render() {
+    const { users } = this.props;
+
+    const DataUser = users.users.map((user, index) => {
+      const timeStamp = user.created_at.split("T");
+      const date = timeStamp[0];
+      const time = timeStamp[1].split(".")[0];
+      return (
+        <tr key={index}>
+          <td>{user.id}</td>
+          <td>
+            <img
+              alt="..."
+              src={
+                user.image_profile === null
+                  ? avatar
+                  : user.image_profile.slice(0, 13) === "image_profile"
+                  ? `${URL_API}/imageProfile/${user.image_profile}`
+                  : user.image_profile
+                  ? user.image_profile
+                  : user.image_profile === (undefined || null || "" || -1)
+                  ? avatar
+                  : avatar
+              }
+              width={50}
+              style={{ borderRadius: "50px" }}
+            />
+          </td>
+          <td>{user.name}</td>
+          <td>{user.email}</td>
+          <td>{user.role === 0 || user.role === 2 ? "User" : "Admin"}</td>
+          <td>{`${time} ${date}`}</td>
+        </tr>
+      );
+    });
+
     return (
       <>
         <Header />
@@ -47,24 +69,7 @@ class Users extends Component {
                       <th scope="col">Created At</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-
-                      <td>
-                        <img
-                          alt="..."
-                          src={`${URL_API}/image/image-1592930525588.jpg`}
-                          width={50}
-                          style={{ borderRadius: "50px" }}
-                        />
-                      </td>
-                      <td>Bagus Pratama</td>
-                      <td>bagus@example.com</td>
-                      <td>User</td>
-                      <td>20:54 22/06/2020</td>
-                    </tr>
-                  </tbody>
+                  <tbody>{DataUser}</tbody>
                 </Table>
               </Card>
             </div>
@@ -75,4 +80,10 @@ class Users extends Component {
   }
 }
 
-export default Users;
+const mapStateToProps = ({ users }) => {
+  return {
+    users,
+  };
+};
+
+export default connect(mapStateToProps)(Users);

@@ -7,6 +7,8 @@ import Header from "components/Headers/Header.js";
 import { URL_API } from "utils/http";
 import { changeStatusBook } from "utils/http";
 
+import { withRouter } from "react-router-dom";
+
 class DetailBooks extends Component {
   _changeStatus = async (status) => {
     const { id } = this.props.location.state[0];
@@ -31,7 +33,7 @@ class DetailBooks extends Component {
         </Button>
       );
     };
-
+    // const book = { this.props.location.state[0] !== (0 || undefined || null) ?  this.props.location.state[0] : this.props.history.push('/auth')}
     const book = this.props.location.state[0];
     const detailBook = (
       <CardBody>
@@ -172,4 +174,4 @@ class DetailBooks extends Component {
   }
 }
 
-export default DetailBooks;
+export default withRouter(DetailBooks);
