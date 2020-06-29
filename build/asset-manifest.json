@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/static/css/main.84e97beb.chunk.css",
+    "main.js": "/static/js/main.8af95302.chunk.js",
+    "main.js.map": "/static/js/main.8af95302.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.56f2d1b6.js",
+    "runtime-main.js.map": "/static/js/runtime-main.56f2d1b6.js.map",
+    "static/css/2.79838944.chunk.css": "/static/css/2.79838944.chunk.css",
+    "static/js/2.7e1bcaac.chunk.js": "/static/js/2.7e1bcaac.chunk.js",
+    "static/js/2.7e1bcaac.chunk.js.map": "/static/js/2.7e1bcaac.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.cf59cf830b0b93020b4d6494f4777a6b.js": "/precache-manifest.cf59cf830b0b93020b4d6494f4777a6b.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.79838944.chunk.css.map": "/static/css/2.79838944.chunk.css.map",
+    "static/css/main.84e97beb.chunk.css.map": "/static/css/main.84e97beb.chunk.css.map",
+    "static/js/2.7e1bcaac.chunk.js.LICENSE.txt": "/static/js/2.7e1bcaac.chunk.js.LICENSE.txt",
+    "static/js/main.8af95302.chunk.js.LICENSE.txt": "/static/js/main.8af95302.chunk.js.LICENSE.txt",
+    "static/media/Logo-Blue.png": "/static/media/Logo-Blue.40f1b7ac.png",
+    "static/media/Logo-White.png": "/static/media/Logo-White.e853e1ac.png",
+    "static/media/avatar.jpg": "/static/media/avatar.c38d540d.jpg",
+    "static/media/bg12.jpg": "/static/media/bg12.bd5df301.jpg",
+    "static/media/dwiky.jpg": "/static/media/dwiky.55c2e766.jpg",
+    "static/media/all.min.css": "/static/media/fa-solid-900.cdfec5cf.woff",
+    "static/media/fian4.png": "/static/media/fian4.4202cbc6.png",
+    "static/media/hp.png": "/static/media/hp.e9d3d0b9.png",
+    "static/media/nucleo.css": "/static/media/nucleo-icons.f82ec6ba.ttf",
+    "static/media/redi.png": "/static/media/redi.566a0668.png",
+    "static/media/regasiip.jpeg": "/static/media/regasiip.3cfac36f.jpeg",
+    "static/media/ryan.jpg": "/static/media/ryan.f217f346.jpg",
+    "static/media/team-1-800x800.jpg": "/static/media/team-1-800x800.53033970.jpg",
+    "static/media/team-4-800x800.jpg": "/static/media/team-4-800x800.23007132.jpg",
+    "static/media/vikra3.jpg": "/static/media/vikra3.13e555c2.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.56f2d1b6.js",
+    "static/css/2.79838944.chunk.css",
+    "static/js/2.7e1bcaac.chunk.js",
+    "static/css/main.84e97beb.chunk.css",
+    "static/js/main.8af95302.chunk.js"
+  ]
+}
